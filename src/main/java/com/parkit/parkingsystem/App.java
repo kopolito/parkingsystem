@@ -1,5 +1,7 @@
 package com.parkit.parkingsystem;
 
+import java.util.Scanner;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,8 +16,8 @@ public class App {
 
 	public static void main(String args[]) {
 		logger.info("Initializing Parking System");
-
-		InputReaderUtil inputReaderUtil = new InputReaderUtil();
+		Scanner scan = new Scanner(System.in);
+		InputReaderUtil inputReaderUtil = new InputReaderUtil(scan);
 		ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
 		TicketDAO ticketDAO = new TicketDAO();
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
