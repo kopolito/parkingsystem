@@ -22,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.parkit.parkingsystem.constants.Fare;
+import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
@@ -107,5 +108,24 @@ public class ParkingDataBaseIT {
 		Duration duration = Duration.between(ticket.getInTime().toInstant(), ticket.getOutTime().toInstant());
 		assertEquals(60, duration.getSeconds() / 60);
 
+	}
+
+	// check if parking is full
+	@Test
+	public void noNextAvailableSlot_whenParkinkLotIsFull() throws Exception {
+		// GIVEN
+		when(inputReaderUtil.readVehicleRegistrationNumber())
+				.thenReturn("ABCDEA")
+				.thenReturn("ABCDEB")
+				.thenReturn("ABCDEC")
+				.thenReturn("ABCDEE");
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		parkingService.processIncomingVehicle();
+		parkingService.processIncomingVehicle();
+		parkingService.processIncomingVehicle();
+
+		assertEquals(0, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
+
+		assertEquals(null, parkingService.getNextParkingNumberIfAvailable());
 	}
 }
