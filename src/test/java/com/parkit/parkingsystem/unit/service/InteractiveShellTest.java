@@ -74,4 +74,18 @@ class InteractiveShellTest {
 		verify(parkingService, Mockito.times(1)).processIncomingVehicle();
 	}
 
+	@Test
+	void loadInterface_callsParkingServiceProcessExitingVehicle_whenInputTwo() {
+		when(inputReaderUtil.readSelection())
+				.thenReturn(2)
+				.thenReturn(3);
+
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+
+		interactiveShell.loadInterface();
+
+		verify(parkingService, Mockito.times(1)).processExitingVehicle();
+	}
+
 }
