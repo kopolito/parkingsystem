@@ -74,4 +74,14 @@ public class ParkingServiceIT {
 		assertEquals(ParkingType.CAR, spot.getParkingType());
 	}
 
+	@Test
+	public void getNextParkingNumberIfAvailable_returnsNull_whenWrongInput() {
+		when(inputReaderUtil.readSelection()).thenReturn(3);
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+
+		ParkingSpot spot = parkingService.getNextParkingNumberIfAvailable();
+
+		assertEquals(null, spot);
+	}
+
 }
