@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.integration.dao;
+package com.parkit.parkingsystem.integration;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

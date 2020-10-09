@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.unit.dao;
+package com.parkit.parkingsystem.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 
-class ParkingSpotDAOTest {
+class ParkingSpotDAOIT {
 
 	private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private static ParkingSpotDAO parkingSpotDAO;
