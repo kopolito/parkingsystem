@@ -199,4 +199,13 @@ public class FareCalculatorServiceTest {
 		double price = FareCalculatorService.calculateFare(ticket);
 		assertEquals((2 * Fare.BIKE_RATE_PER_HOUR) * (1 - Fare.RECURRENT_DISCOUNT), price);
 	}
+
+	@Test
+	public void calculateFareThrowsException_WhenNullOutTime() {
+		ticket.setInTime(new Date());
+		ticket.setOutTime(null);
+		ticket.setParkingSpot(new ParkingSpot(1, ParkingType.CAR, false));
+
+		assertThrows(IllegalArgumentException.class, () -> FareCalculatorService.calculateFare(ticket));
+	}
 }
