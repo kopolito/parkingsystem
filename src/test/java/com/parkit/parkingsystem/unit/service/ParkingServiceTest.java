@@ -1,6 +1,7 @@
 package com.parkit.parkingsystem.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -80,6 +81,15 @@ public class ParkingServiceTest {
 
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> parkingService.getVehicleType());
 		assertEquals("Entered input is invalid", exception.getMessage());
+	}
+
+	@Test
+	void getNextParkingNumberIfAvailable_whenBadInputProvided() {
+		when(inputReaderUtil.readSelection()).thenReturn(3);
+
+		ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
+
+		assertNull(parkingSpot);
 	}
 
 	@Test
