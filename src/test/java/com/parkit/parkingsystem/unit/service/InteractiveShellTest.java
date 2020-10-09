@@ -88,4 +88,19 @@ class InteractiveShellTest {
 		verify(parkingService, Mockito.times(1)).processExitingVehicle();
 	}
 
+	@Test
+	void loadInterface_saysErrorMessage_whenInputInvalid() {
+		when(inputReaderUtil.readSelection())
+				.thenReturn(0)
+				.thenReturn(3);
+
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(out));
+
+		interactiveShell.loadInterface();
+
+		assertTrue(out.toString()
+				.contains("Unsupported option. Please enter a number corresponding to the provided menu"));
+	}
+
 }
