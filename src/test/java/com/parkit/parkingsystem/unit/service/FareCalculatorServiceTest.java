@@ -208,4 +208,19 @@ public class FareCalculatorServiceTest {
 
 		assertThrows(IllegalArgumentException.class, () -> FareCalculatorService.calculateFare(ticket));
 	}
+
+	@Test
+	public void calculateFareThrowsException_WhenOutTimeBeforeInTime() {
+		Date inTime = new Date();
+
+		Date outTime = new Date();
+		outTime.setTime(System.currentTimeMillis() - (2 * 60 * 60 * 1000));
+
+		ticket.setInTime(inTime);
+		ticket.setOutTime(outTime);
+
+		ticket.setParkingSpot(new ParkingSpot(1, ParkingType.CAR, false));
+
+		assertThrows(IllegalArgumentException.class, () -> FareCalculatorService.calculateFare(ticket));
+	}
 }
