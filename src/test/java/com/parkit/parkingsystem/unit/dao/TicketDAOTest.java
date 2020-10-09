@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.dao;
+package com.parkit.parkingsystem.unit.dao;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.Ticket;
 
 class TicketDAOTest {
