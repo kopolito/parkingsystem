@@ -1,0 +1,5 @@
+/com/
+/target/
+.project
+.classpath
+bin
