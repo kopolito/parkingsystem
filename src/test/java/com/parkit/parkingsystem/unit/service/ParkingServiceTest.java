@@ -159,4 +159,16 @@ public class ParkingServiceTest {
 		verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
 	}
 
+	@Test
+	public void processExitingVehicle_whenTicketNotUpdated() throws Exception {
+		when(ticketDAO.updateTicket(any(Ticket.class)))
+				.thenReturn(false);
+
+		parkingService.processExitingVehicle();
+		verify(ticketDAO, Mockito.times(1)).getTicket(any(String.class));
+		verify(ticketDAO, Mockito.times(1)).hasBrothers(any(Ticket.class));
+		verify(ticketDAO, Mockito.times(1)).updateTicket(any(Ticket.class));
+		verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
+	}
+
 }
