@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem;
+package com.parkit.parkingsystem.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -198,5 +198,29 @@ public class FareCalculatorServiceTest {
 
 		double price = FareCalculatorService.calculateFare(ticket);
 		assertEquals((2 * Fare.BIKE_RATE_PER_HOUR) * (1 - Fare.RECURRENT_DISCOUNT), price);
+	}
+
+	@Test
+	public void calculateFareThrowsException_WhenNullOutTime() {
+		ticket.setInTime(new Date());
+		ticket.setOutTime(null);
+		ticket.setParkingSpot(new ParkingSpot(1, ParkingType.CAR, false));
+
+		assertThrows(IllegalArgumentException.class, () -> FareCalculatorService.calculateFare(ticket));
+	}
+
+	@Test
+	public void calculateFareThrowsException_WhenOutTimeBeforeInTime() {
+		Date inTime = new Date();
+
+		Date outTime = new Date();
+		outTime.setTime(System.currentTimeMillis() - (2 * 60 * 60 * 1000));
+
+		ticket.setInTime(inTime);
+		ticket.setOutTime(outTime);
+
+		ticket.setParkingSpot(new ParkingSpot(1, ParkingType.CAR, false));
+
+		assertThrows(IllegalArgumentException.class, () -> FareCalculatorService.calculateFare(ticket));
 	}
 }
