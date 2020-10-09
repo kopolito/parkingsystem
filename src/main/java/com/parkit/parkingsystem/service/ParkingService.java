@@ -105,6 +105,7 @@ public class ParkingService {
 			Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
 			Date outTime = new Date();
 			ticket.setOutTime(outTime);
+			ticket.setIsReccurent(ticketDAO.hasBrothers(ticket));
 			double price = FareCalculatorService.calculateFare(ticket);
 			ticket.setPrice(price);
 			if (ticketDAO.updateTicket(ticket)) {

@@ -33,7 +33,11 @@ public class FareCalculatorService {
 		default:
 			throw new IllegalArgumentException("Unkown Parking Type");
 		}
-		price = durationHour * fare;
+		if (!ticket.getIsRecurrent()) {
+			price = durationHour * fare;
+		} else {
+			price = durationHour * fare * (1 - Fare.RECURRENT_DISCOUNT);
+		}
 		return price;
 	}
 }
