@@ -147,4 +147,16 @@ public class ParkingServiceTest {
 		verify(ticketDAO, Mockito.times(1)).hasBrothers(any(Ticket.class));
 	}
 
+	@Test
+	public void processExitingVehicle_whenBadRegistrationNumber() throws Exception {
+		when(inputReaderUtil.readVehicleRegistrationNumber())
+				.thenThrow(new IllegalArgumentException("Invalid input provided"));
+
+		parkingService.processExitingVehicle();
+		verify(ticketDAO, Mockito.times(0)).getTicket(any(String.class));
+		verify(ticketDAO, Mockito.times(0)).hasBrothers(any(Ticket.class));
+		verify(ticketDAO, Mockito.times(0)).updateTicket(any(Ticket.class));
+		verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
+	}
+
 }
