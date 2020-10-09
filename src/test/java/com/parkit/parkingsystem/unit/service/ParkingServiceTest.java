@@ -109,6 +109,22 @@ public class ParkingServiceTest {
 	}
 
 	@Test
+	public void processIncomingVehicle_WhenParkingFull() throws Exception {
+		when(inputReaderUtil.readSelection()).thenReturn(1);
+		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
+		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
+
+		parkingService.processIncomingVehicle();
+
+		assertEquals("ABCDEF", parkingService.getVehicleRegNumber());
+
+		verify(inputReaderUtil, Mockito.times(1)).readSelection();
+		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any(ParkingType.class));
+		verify(ticketDAO, Mockito.times(0)).saveTicket(any(Ticket.class));
+		verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
+	}
+
+	@Test
 	public void processExitingVehicleTest() {
 		parkingService.processExitingVehicle();
 		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
