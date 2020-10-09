@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.util;
+package com.parkit.parkingsystem.unit.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
+
+import com.parkit.parkingsystem.util.InputReaderUtil;
 
 class InputReaderUtilTest {
 
