@@ -123,9 +123,8 @@ public class ParkingDataBaseIT {
 		parkingService.processIncomingVehicle();
 		parkingService.processIncomingVehicle();
 		parkingService.processIncomingVehicle();
-
+		// THEN
 		assertEquals(0, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
-
 		assertEquals(null, parkingService.getNextParkingNumberIfAvailable());
 	}
 }

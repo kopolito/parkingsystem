@@ -24,32 +24,36 @@ class InputReaderUtilTest {
 
 	@Test
 	void readSelection_returnsInt_whenValidInput() {
+		// GIVEN
 		inputReaderUtil = getInputReaderForString("1");
-
 		int result = inputReaderUtil.readSelection();
+		// THEN
 		assertEquals(1, result);
 	}
 
 	@Test
 	void readSelection_returnsInvalid_whenInvalidInput() {
+		// GIVEN
 		inputReaderUtil = getInputReaderForString("abcd");
-
 		int result = inputReaderUtil.readSelection();
+		// THEN
 		assertEquals(-1, result);
 	}
 
 	@Test
 	void readVehicleReg_returnsValid_whenValidInput() throws Exception {
+		// GIVEN
 		inputReaderUtil = getInputReaderForString("ABCDEF");
-
 		String result = inputReaderUtil.readVehicleRegistrationNumber();
+		// THEN
 		assertEquals("ABCDEF", result);
 	}
 
 	@Test
 	void readVehicleReg_throwsException_whenInvalidInput() {
+		// GIVEN
 		inputReaderUtil = getInputReaderForString(" ");
-
+		// THEN
 		assertThrows(Exception.class, () -> inputReaderUtil.readVehicleRegistrationNumber());
 	}
 

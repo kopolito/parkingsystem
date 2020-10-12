@@ -19,19 +19,20 @@ class ParkingSpotDAOTest {
 
 	@BeforeEach
 	private void setUpPerTest() {
+		// GIVEN
 		parkingSpotDAO = new ParkingSpotDAO();
 		parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
 	}
 
 	@Test
 	public void getNextAvailableSlot_whenParkingTypeIsNull() {
-
+		// THEN
 		assertEquals(-1, parkingSpotDAO.getNextAvailableSlot(null));
 	}
 
 	@Test
 	public void updateParking_whenParkingTypeIsNull() {
-
+		// THEN
 		assertEquals(false, parkingSpotDAO.updateParking(null));
 	}
 

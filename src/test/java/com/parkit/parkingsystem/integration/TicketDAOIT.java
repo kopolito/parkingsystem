@@ -37,6 +37,7 @@ public class TicketDAOIT {
 
 	@BeforeAll
 	private static void setUp() throws Exception {
+		// GIVEN
 		System.out.println("TICKETDAO DEBUT");
 		parkingSpotDAO = new ParkingSpotDAO();
 		parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
@@ -56,6 +57,7 @@ public class TicketDAOIT {
 
 	@BeforeEach
 	private void setUpEach() {
+		// GIVEN
 		ticket = new Ticket();
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
@@ -63,12 +65,12 @@ public class TicketDAOIT {
 
 	@AfterEach
 	private void cleanAfter() {
-		System.out.println("TICKETDAO clean");
 		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Test
 	void hasBrothers_whenOldTicketRecord() {
+		// GIVEN
 		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
 		System.out.println("Before save");
 		ticketDAO.saveTicket(ticket);
@@ -76,12 +78,15 @@ public class TicketDAOIT {
 		ticket = new Ticket();
 		ticket.setVehicleRegNumber(vehicleRegNumber);
 		ticket.setInTime(new Date(System.currentTimeMillis()));
+		// THEN
 		assertTrue(ticketDAO.hasBrothers(ticket));
 	}
 
 	@Test
 	void hasNoBrothers() {
+		// GIVEN
 		ticket.setInTime(new Date(System.currentTimeMillis()));
+		// THEN
 		assertFalse(ticketDAO.hasBrothers(ticket));
 	}
 

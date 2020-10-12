@@ -20,35 +20,36 @@ class TicketDAOTest {
 
 	@Test
 	public void saveTicket_returnsFalse_whenTicketIsNull() {
-
+		// THEN
 		assertFalse(ticketDAO.saveTicket(null));
 	}
 
 	@Test
 	public void saveTicket_returnsFalse_whenParkingSpotIsNull() {
+		// GIVEN
 		Ticket ticket = new Ticket();
 		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
 		ticket.setVehicleRegNumber("ABCDEF");
 		ticket.setParkingSpot(null);
-
+		// THEN
 		assertFalse(ticketDAO.saveTicket(ticket));
 	}
 
 	@Test
 	public void updateTicket_returnsFalse_whenTicketIsNull() {
-
+		// THEN
 		assertFalse(ticketDAO.updateTicket(null));
 	}
 
 	@Test
 	public void getTicket_returnsNull_whenVehicleRegNumberIsNull() {
-
+		// THEN
 		assertNull(ticketDAO.getTicket(null));
 	}
 
 	@Test
 	public void hasBrothers_returnsFalse_whenTicketIsNull() {
-
+		// THEN
 		assertFalse(ticketDAO.hasBrothers(null));
 	}
 

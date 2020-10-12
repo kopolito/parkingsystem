@@ -66,22 +66,22 @@ public class ParkingServiceIT {
 
 	@Test
 	public void getNextParkingNumberIfAvailable_returnsParkingSpot() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-
 		ParkingSpot spot = parkingService.getNextParkingNumberIfAvailable();
-
+		// THEN
 		assertNotEquals(null, spot);
 		assertEquals(ParkingType.CAR, spot.getParkingType());
 	}
 
 	@Test
 	public void getNextParkingNumberIfAvailable_returnsNull_whenWrongInput() {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(3);
 		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-
 		ParkingSpot spot = parkingService.getNextParkingNumberIfAvailable();
-
+		// THEN
 		assertEquals(null, spot);
 	}
 

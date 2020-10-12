@@ -44,6 +44,7 @@ public class ParkingServiceTest {
 
 	@BeforeEach
 	private void setUpPerTest() {
+		// GIVEN
 		try {
 			lenient().when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 
@@ -66,10 +67,11 @@ public class ParkingServiceTest {
 
 	@Test
 	void getVehiculeType_whenValidInputProvided() {
+		// GIVEN
 		when(inputReaderUtil.readSelection())
 				.thenReturn(1)
 				.thenReturn(2);
-
+		// THEN
 		ParkingType getVehichleType = parkingService.getVehicleType();
 		assertEquals(ParkingType.CAR, getVehichleType);
 
@@ -81,31 +83,32 @@ public class ParkingServiceTest {
 
 	@Test
 	void getVehiculeType_whenBadInputProvided() {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(3);
-
+		// THEN
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> parkingService.getVehicleType());
 		assertEquals("Entered input is invalid", exception.getMessage());
 	}
 
 	@Test
 	void getNextParkingNumberIfAvailable_whenBadInputProvided() {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(3);
-
 		ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
-
+		// THEN
 		assertNull(parkingSpot);
 	}
 
 	@Test
 	public void processIncomingVehicle() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 
 		parkingService.processIncomingVehicle();
-
+		// THEN
 		assertEquals("ABCDEF", parkingService.getVehicleRegNumber());
-
 		verify(inputReaderUtil, Mockito.times(1)).readSelection();
 		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any(ParkingType.class));
 		verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
@@ -114,14 +117,12 @@ public class ParkingServiceTest {
 
 	@Test
 	public void processIncomingVehicle_WhenParkingFull() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
-		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 
 		parkingService.processIncomingVehicle();
-
-		assertEquals("ABCDEF", parkingService.getVehicleRegNumber());
-
+		// THEN
 		verify(inputReaderUtil, Mockito.times(1)).readSelection();
 		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any(ParkingType.class));
 		verify(ticketDAO, Mockito.times(0)).saveTicket(any(Ticket.class));
@@ -130,13 +131,14 @@ public class ParkingServiceTest {
 
 	@Test
 	public void processIncomingVehicle_WhenBadRegistrationNumber() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
 		when(inputReaderUtil.readVehicleRegistrationNumber())
 				.thenThrow(new IllegalArgumentException("Invalid input provided"));
 
 		parkingService.processIncomingVehicle();
-
+		// THEN
 		verify(inputReaderUtil, Mockito.times(1)).readSelection();
 		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any(ParkingType.class));
 		verify(ticketDAO, Mockito.times(0)).saveTicket(any(Ticket.class));
@@ -145,7 +147,9 @@ public class ParkingServiceTest {
 
 	@Test
 	public void processExitingVehicle() {
+		// GIVEN
 		parkingService.processExitingVehicle();
+		// THEN
 		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
 		verify(ticketDAO, Mockito.times(1)).updateTicket(any(Ticket.class));
 		verify(ticketDAO, Mockito.times(1)).hasBrothers(any(Ticket.class));
@@ -153,10 +157,12 @@ public class ParkingServiceTest {
 
 	@Test
 	public void processExitingVehicle_whenBadRegistrationNumber() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readVehicleRegistrationNumber())
 				.thenThrow(new IllegalArgumentException("Invalid input provided"));
 
 		parkingService.processExitingVehicle();
+		// THEN
 		verify(ticketDAO, Mockito.times(0)).getTicket(any(String.class));
 		verify(ticketDAO, Mockito.times(0)).hasBrothers(any(Ticket.class));
 		verify(ticketDAO, Mockito.times(0)).updateTicket(any(Ticket.class));
@@ -165,10 +171,12 @@ public class ParkingServiceTest {
 
 	@Test
 	public void processExitingVehicle_whenTicketNotUpdated() throws Exception {
+		// GIVEN
 		when(ticketDAO.updateTicket(any(Ticket.class)))
 				.thenReturn(false);
 
 		parkingService.processExitingVehicle();
+		// THEN
 		verify(ticketDAO, Mockito.times(1)).getTicket(any(String.class));
 		verify(ticketDAO, Mockito.times(1)).hasBrothers(any(Ticket.class));
 		verify(ticketDAO, Mockito.times(1)).updateTicket(any(Ticket.class));
