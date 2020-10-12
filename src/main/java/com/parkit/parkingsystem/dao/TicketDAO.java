@@ -35,6 +35,7 @@ public class TicketDAO {
 			ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (new Timestamp(ticket.getOutTime().getTime())));
 			int insertedCount = ps.executeUpdate();
 			success = insertedCount == 1;
+			dataBaseConfig.closePreparedStatement(ps);
 		} catch (Exception ex) {
 			logger.error("Error fetching next available slot", ex);
 		} finally {
