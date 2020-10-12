@@ -17,7 +17,7 @@ import com.parkit.parkingsystem.model.Ticket;
 @DisplayName("Ticket Unit Tests")
 class TicketTest {
 
-	private static Ticket ticket;
+	private Ticket ticket;
 
 	@BeforeEach
 	void setUp() {

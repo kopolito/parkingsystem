@@ -16,7 +16,7 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @DisplayName("InputReaderUtil Unit Tests")
 class InputReaderUtilTest {
 
-	private static InputReaderUtil inputReaderUtil;
+	private InputReaderUtil inputReaderUtil;
 
 	private InputReaderUtil getInputReaderForString(String input) {
 		return new InputReaderUtil(new Scanner(new ByteArrayInputStream(input.getBytes())));
