@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 
+@Tag("UnitTests")
+@DisplayName("ParkingSpot Unit Tests")
 class ParkingSpotTest {
 	private static ParkingSpot parkingSpot;
 

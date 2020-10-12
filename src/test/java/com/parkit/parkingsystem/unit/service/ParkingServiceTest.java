@@ -12,6 +12,8 @@ import static org.mockito.Mockito.when;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -26,6 +28,8 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+@Tag("UnitTests")
+@DisplayName("ParkingService Unit Tests")
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
 

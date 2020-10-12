@@ -74,7 +74,7 @@ public class ParkingDataBaseIT {
 
 	// check that a ticket is actually saved in DB and Parking table is updated with availability
 	@Test
-	public void ticketAndParkingSpotAvailableStatusSavedInDB_whenParkingLotEnter() {
+	public void ticketAndParkingSpotAvailableStatus_savedInDB_whenParkingLotEnter() {
 		// GIVEN
 		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processIncomingVehicle();
@@ -86,7 +86,7 @@ public class ParkingDataBaseIT {
 
 	// check that the fare generated and out time are populated correctly in the database
 	@Test
-	public void ticketFareAndOutTimeCorrectlySavedInDB_whenParkingLotExit() {
+	public void ticketFareAndOutTime_savedInDB_whenParkingLotExit() {
 		// compare same date format
 		SimpleDateFormat sdfUTC = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		sdfUTC.setTimeZone(TimeZone.getTimeZone("UTC"));

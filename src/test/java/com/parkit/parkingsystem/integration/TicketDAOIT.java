@@ -22,9 +22,9 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
-@ExtendWith(MockitoExtension.class)
 @Tag("IntegrationTests")
 @DisplayName("TicketDAOIT Integration Tests")
+@ExtendWith(MockitoExtension.class)
 public class TicketDAOIT {
 
 	private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
@@ -68,7 +68,7 @@ public class TicketDAOIT {
 	}
 
 	@Test
-	void test_hasBrothers() {
+	void hasBrothers_whenOldTicketRecord() {
 		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
 		System.out.println("Before save");
 		ticketDAO.saveTicket(ticket);
@@ -80,7 +80,7 @@ public class TicketDAOIT {
 	}
 
 	@Test
-	void test_hasNoBrothers() {
+	void hasNoBrothers() {
 		ticket.setInTime(new Date(System.currentTimeMillis()));
 		assertFalse(ticketDAO.hasBrothers(ticket));
 	}

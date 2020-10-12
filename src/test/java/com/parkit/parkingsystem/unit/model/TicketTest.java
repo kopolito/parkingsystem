@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
+@Tag("UnitTests")
+@DisplayName("Ticket Unit Tests")
 class TicketTest {
 
 	private static Ticket ticket;

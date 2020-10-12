@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.Ticket;
 
+@Tag("UnitTests")
+@DisplayName("TicketDAO Unit Tests")
 class TicketDAOTest {
 
 	private static final TicketDAO ticketDAO = new TicketDAO();

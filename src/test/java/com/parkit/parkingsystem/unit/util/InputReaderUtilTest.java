@@ -6,10 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+@Tag("UnitTests")
+@DisplayName("InputReaderUtil Unit Tests")
 class InputReaderUtilTest {
 
 	private static InputReaderUtil inputReaderUtil;
@@ -19,7 +23,7 @@ class InputReaderUtilTest {
 	}
 
 	@Test
-	void whenValidInput_thenReadSelectionReturnsInt() {
+	void readSelection_returnsInt_whenValidInput() {
 		inputReaderUtil = getInputReaderForString("1");
 
 		int result = inputReaderUtil.readSelection();
@@ -27,7 +31,7 @@ class InputReaderUtilTest {
 	}
 
 	@Test
-	void whenInvalidInput_thenReadSelectionReturnInvalid() {
+	void readSelection_returnsInvalid_whenInvalidInput() {
 		inputReaderUtil = getInputReaderForString("abcd");
 
 		int result = inputReaderUtil.readSelection();
@@ -35,7 +39,7 @@ class InputReaderUtilTest {
 	}
 
 	@Test
-	void whenValidInput_thenReadVehicleRegReturnsValid() throws Exception {
+	void readVehicleReg_returnsValid_whenValidInput() throws Exception {
 		inputReaderUtil = getInputReaderForString("ABCDEF");
 
 		String result = inputReaderUtil.readVehicleRegistrationNumber();
@@ -43,7 +47,7 @@ class InputReaderUtilTest {
 	}
 
 	@Test
-	void whenInvalidInput_thenReadVehicleRegThrowsException() {
+	void readVehicleReg_throwsException_whenInvalidInput() {
 		inputReaderUtil = getInputReaderForString(" ");
 
 		assertThrows(Exception.class, () -> inputReaderUtil.readVehicleRegistrationNumber());
