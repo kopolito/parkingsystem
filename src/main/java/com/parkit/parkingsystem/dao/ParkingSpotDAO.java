@@ -3,6 +3,7 @@ package com.parkit.parkingsystem.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,16 +21,20 @@ public class ParkingSpotDAO {
 	public int getNextAvailableSlot(ParkingType parkingType) {
 		Connection con = null;
 		int result = -1;
+
 		try {
 			con = dataBaseConfig.getConnection();
-			PreparedStatement ps = con.prepareStatement(DBConstants.GET_NEXT_PARKING_SPOT);
-			ps.setString(1, parkingType.toString());
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(1);
+			try (PreparedStatement ps = con.prepareStatement(DBConstants.GET_NEXT_PARKING_SPOT)) {
+				ps.setString(1, parkingType.toString());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					result = rs.getInt(1);
+				}
+				dataBaseConfig.closeResultSet(rs);
+			} catch (SQLException ex) {
+				logger.error("Error getting preparedStatement", ex);
+				throw ex;
 			}
-			dataBaseConfig.closeResultSet(rs);
-			dataBaseConfig.closePreparedStatement(ps);
 		} catch (Exception ex) {
 			logger.error("Error fetching next available slot", ex);
 		} finally {
@@ -44,12 +49,15 @@ public class ParkingSpotDAO {
 		boolean success = false;
 		try {
 			con = dataBaseConfig.getConnection();
-			PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT);
-			ps.setBoolean(1, parkingSpot.isAvailable());
-			ps.setInt(2, parkingSpot.getId());
-			int updateRowCount = ps.executeUpdate();
-			dataBaseConfig.closePreparedStatement(ps);
-			success = (updateRowCount == 1);
+			try (PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT)) {
+				ps.setBoolean(1, parkingSpot.isAvailable());
+				ps.setInt(2, parkingSpot.getId());
+				int updateRowCount = ps.executeUpdate();
+				success = (updateRowCount == 1);
+			} catch (SQLException ex) {
+				logger.error("Error getting preparedStatement", ex);
+				throw ex;
+			}
 		} catch (Exception ex) {
 			logger.error("Error updating parking info", ex);
 			success = false;
